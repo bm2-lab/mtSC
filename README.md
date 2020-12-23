@@ -44,6 +44,10 @@ You can directly use models we have trained. Models can be downloaded through ht
 ```
 python test_with_trained_model.py -m brain
 ```
+Or if you have trained your own model by running `run.py`. You can also use your own model by
+```
+python test_with_trained_model.py -m new_model
+```
 
  ## Check the results
  Results are in the `result.txt`  after running.
