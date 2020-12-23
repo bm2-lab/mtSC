@@ -1,8 +1,0 @@
-brain
-'L6b', 'Pvalb', 'Sst', 'Vip', 'Astrocyte', 'L2/3_IT', 'L4/5_IT', 'L5_PT', 'L6_CT', 'L6_IT', 'Lamp5', 'NP', 'L3/5_IT', 'L5/6_IT_1', 'L5/6_IT_2', 'L5/6_IT_3', 'Oligo'
-immune1
-'B_cell', 'CD14+_monocyte', 'CD16+_monocyte', 'CD4+_T_cell', 'Cytotoxic_T_cell', 'Dendritic_cell', 'Megakaryocyte', 'Natural_killer_cell', 'Plasmacytoid_dendritic_cell'
-immune2
-'B_cells', 'CD14+_Monocytes', 'CD4_T_cells', 'CD8_T_cells', 'Dendritic_cells', 'FCGR3A+_Monocytes', 'HEK_cells', 'NK_cells', 'Megakaryocytes'
-pancreas
-'acinar','activated_stellate','alpha','beta','delta','ductal','endothelial','epsilon','gamma','macrophage','mast','quiescent_stellate','schwann','mesenchymal','PSC','co-expression'
