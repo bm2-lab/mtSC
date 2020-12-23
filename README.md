@@ -9,10 +9,15 @@ git clone https://github.com/bm2-lab/mtSC.git
 pip install mtSC
 ```
 3. Create folder
+Linux or Mac:
 ```
 cd mtSC
-mkdir train_set
-mkdir test_set
+sh create_folder.sh
+```
+Windows:
+```
+cd mtSC
+create_folder.bat
 ```
 ## Data preprocessing
 A routine normalization and quality control should be performed. There are three criteria: the number of genes detected (default >500), the number of unique molecular identifiers induced (default >1500), and the percentage of mitochondrial genes detected (default <10% among all genes). Only cells satisfying all three criteria are retained to construct the reference data. Then all datasets were normalized with commonly used method, i.e., scaling to 10000 and then with log(counts+1). Next, rare cell types whose cell number is less than 10 should be removed because such cell types do not contain enough information and are unreliable for subsequent assignment.
