@@ -128,7 +128,7 @@ metrics_list = []
 labels_list = []
 for filename in os.listdir('pre_trained/metrics_and_labels/'+mode):
     if 'npz' in filename:
-        npzfile = np.load('pre_trained/metrics_and_labels/'+mode+'/'+filename)
+        npzfile = np.load('pre_trained/metrics_and_labels/'+mode+'/'+filename, allow_pickle=True)
         metrics_list.append(npzfile['metrics'])
         labels_list.append(npzfile['labels'])
 
