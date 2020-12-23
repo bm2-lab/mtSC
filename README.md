@@ -10,6 +10,7 @@ pip install mtSC
 ```
 3. Create folder
 ```
+cd mtSC
 mkdir train_set
 mkdir test_set
 ```
