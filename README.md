@@ -8,7 +8,7 @@ git clone https://github.com/bm2-lab/mtSC.git
 ```
 pip install mtSC
 ```
-3. Create folder
+3. Create folder  
 Linux or Mac:
 ```
 cd mtSC
