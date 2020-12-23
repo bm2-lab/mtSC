@@ -14,7 +14,7 @@ Linux or Mac:
 cd mtSC
 sh create_folder.sh
 ```
-Windows:
+  Windows:
 ```
 cd mtSC
 create_folder.bat
