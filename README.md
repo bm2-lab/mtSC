@@ -8,6 +8,11 @@ git clone https://github.com/bm2-lab/mtSC.git
 ```
 pip install mtSC
 ```
+3. Create folder
+```
+mkdir train_set
+mkdir test_set
+```
 ## Data preprocessing
 A routine normalization and quality control should be performed. There are three criteria: the number of genes detected (default >500), the number of unique molecular identifiers induced (default >1500), and the percentage of mitochondrial genes detected (default <10% among all genes). Only cells satisfying all three criteria are retained to construct the reference data. Then all datasets were normalized with commonly used method, i.e., scaling to 10000 and then with log(counts+1). Next, rare cell types whose cell number is less than 10 should be removed because such cell types do not contain enough information and are unreliable for subsequent assignment.
 ## Format of input data
@@ -22,7 +27,7 @@ The format of test data is the format of training data without the column of "ce
 ```
 python run.py
 ```
-## How scMDML works
+## How mtSC works
 ### Cell assginment with model trained by your datasets
 You just need to put reference datasets files in the `train_set` folder, put the query datasets files in the `test_set` folder and run the following command.
 ```
