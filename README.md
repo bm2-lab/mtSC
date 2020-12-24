@@ -1,5 +1,6 @@
 # Integrating multiple references for single cell assignment
 ## Install
+Environment: Python>=3.6
 1. Clone the repository
 ```
 git clone https://github.com/bm2-lab/mtSC.git  
