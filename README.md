@@ -1,6 +1,6 @@
 # Integrating multiple references for single cell assignment
 mtSC is a flexible single-cell assignment framework that integrates multiple references based on multitask deep metric learning designed specifically for cell type identification within tissues with multiple single-cell sequencing data as references. We evaluated mtSC on a comprehensive set of publicly available benchmark datasets and demonstrated its state-of-the-art effectiveness for integrative single-cell assignment with multiple references. For a detailed description of the algorithm, please see our manuscript.
-![](https://github.com/bm2-lab/mtSC/blob/master/mtSC_workflow.jpeg) 
+![](https://github.com/bm2-lab/mtSC/blob/master/image/mtSC_workflow.jpeg) 
 ## Install
 Environment: Python>=3.6
 1. Clone the repository
