@@ -15,16 +15,16 @@ pip install mtSC
 ```
 3. Create folder 
 
-Linux or Mac:
-```
-cd mtSC
-sh create_folder.sh
-```
-Windows:
-```
-cd mtSC
-create_folder.bat
-```
+   Linux or Mac:
+   ```
+   cd mtSC
+   sh create_folder.sh
+   ```
+   Windows:
+   ```
+   cd mtSC
+   create_folder.bat
+   ```
 ## Tutorial
 ### Format of input data
 A routine normalization and quality control should be performed. The format of training data should be a csv or tab-delimited txt format where the columns correspond to genes and the rows correspond to cells. The column of cell types should be the last column and named as "cell_label". A sample file looks something like:
