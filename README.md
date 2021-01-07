@@ -1,7 +1,10 @@
-# mtSC:Integrating multiple references for single cell assignment
+# mtSC: Integrating multiple references for single cell assignment
 ## Introduction
-mtSC is a flexible single-cell assignment framework that integrates multiple references based on multitask deep metric learning designed specifically for cell type identification within tissues with multiple single-cell sequencing data as references. We evaluated mtSC on a comprehensive set of publicly available benchmark datasets and demonstrated its state-of-the-art effectiveness for integrative single-cell assignment with multiple references. For a detailed description of the algorithm, please see our manuscript.
+mtSC is a novel, flexible and generalized multitask deep metric learning-based framework for single cell assignment based on multiple references. Previous strategies for single-cell assignment with multiple references rely on data- or decision-level integration, while limitations remain. Different from the previous strategies, mtSC regards each reference dataset as a task, and different tasks can be complementary to improve single-cell assignment, while the overcorrection of the batch effect can be avoided. Such a novel integration strategy provides a flexible and reliable way to integrate related reference datasets. On the other hand, two additional advantages of mtSC were proven in this study: (1) mtSC performs increasingly better as the number of reference datasets increases, and (2) mtSC enables cross-species single-cell assignment, especially for specific tissues with very few sequencing datasets available for a specific species. These two characteristics of mtSC are of great potential utility when much more sequencing data on different species have accumulated in the future.
+## Workflow
 ![](https://github.com/bm2-lab/mtSC/blob/master/mtSC_workflow.jpg)
+
+mtSC comprises two main steps: model learning and cell assignment. (1) In the model learning process of mtSC, each dataset is considered a single task, and a corresponding loss is calculated. All the losses are added together and utilized to update the model parameters through a backpropagation algorithm, then the parameter-shared deep metric learning network (PS-DMLN) was trained for the next cell assignment process. (2) In the cell assignment process of mtSC, the trained PS-DMLN is utilized to transform the query cells. Then, the transformed query cells are compared against transformed reference cells, and the predicted cell type with the highest similarity among all the transformed reference datasets is obtained.
 
 ## Install
 Environment: Python>=3.6
@@ -61,4 +64,4 @@ For all the above tests, the assignment results can be found in the `result.txt`
 Qi Liu, et al. Integrative single cell assignment with multiple references by Multi-task Deep Metric Learning
 . 2020 (Manuscript submitted)  
 ## Contacts  
-csq_@tongji.edu.cn or qiliu@tongji.edu.cn
+csq_@tongji.edu.cn, bioinfo_db@163.com or qiliu@tongji.edu.cn
