@@ -56,7 +56,7 @@ Or if you have trained your own model by running `run.py`. You can also use your
 python test_with_trained_model.py -m new_model
 ```
 #### Check the results
-Results are in the `result.txt`  after running.
+For all the above tests, the assignment results can be found in the `result.txt`  after running.
 ## Citation  
 Qi Liu, et al. Integrative single cell assignment with multiple references by Multi-task Deep Metric Learning
 . 2020 (Manuscript submitted)  
