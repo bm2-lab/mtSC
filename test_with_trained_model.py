@@ -95,8 +95,8 @@ def one_model_predict(test_data, model, metrics, labels):
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-m', '--mode', required=True, type=str,
-                    help="you can choose one of 'brain, pancreas, immune1, immune2, new_model",
-                    choices=['brain', 'pancreas', 'immune1', 'immune2', 'new_model'])
+                    help="you can choose one of 'brain, pancreas, PBMC-Ding, PBMC-Mereu, new_model",
+                    choices=['brain', 'pancreas', 'PBMC-Ding', 'PBMC-Mereu', 'new_model'])
 out_args = parser.parse_args()
 mode = out_args.mode
 
