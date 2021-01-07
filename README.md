@@ -58,7 +58,6 @@ The format of test data is the format of training data without the column of "ce
   ```
 * **Check the results:** For all the above tests, the assignment results can be found in the `result.txt`  after running.
 ## Citation  
-Qi Liu, et al. Integrative single cell assignment with multiple references by Multi-task Deep Metric Learning
-. 2020 (Manuscript submitted)  
+Qi Liu, et al. Integrating multiple references for single-cell assignment. 2020 (Manuscript submitted)  
 ## Contacts  
 csq_@tongji.edu.cn, bioinfo_db@163.com or qiliu@tongji.edu.cn
