@@ -15,12 +15,12 @@ pip install mtSC
 ```
 3. Create folder 
 
-Linux or Mac:
+&nbsp;&nbsp;Linux or Mac:
 ```
 cd mtSC
 sh create_folder.sh
 ```
-Windows:
+&nbsp;&nbsp;Windows:
 ```
 cd mtSC
 create_folder.bat
