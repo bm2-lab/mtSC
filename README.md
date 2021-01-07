@@ -40,7 +40,7 @@ A routine normalization and quality control should be performed. The format of t
 
 The format of test data is the format of training data without the column of "cell_label".
 ### How mtSC works
-* **Example datasets:** The example data is in https://www.jianguoyun.com/p/DbqGHM0Q7oftCBiFjNQD. You can download whole `train_set` and `test_set` folder. Once Downloaded, you need to unzip the `train_set.zip` and `test_set.zip` and then  use the unzipped `train_set` folder and `test_set` folder to replace the origin `train_set` folder and `test_set` folder. The demo example can be run by calling the following command.
+* **Example datasets:** The example data is in https://www.jianguoyun.com/p/DbqGHM0Q7oftCBiFjNQD. You can download whole `train_set` and `test_set` folder. Once downloaded, you need to unzip the `train_set.zip` and `test_set.zip` and then use the unzipped `train_set` folder and `test_set` folder to replace the origin `train_set` folder and `test_set` folder. The demo example can be run by calling the following command.
   ```
   python run.py
   ```
@@ -48,7 +48,7 @@ The format of test data is the format of training data without the column of "ce
   ```
   python run.py
   ```
-* **Cell assginment with pre_trained models:** You can directly use models we have trained. Models can be downloaded through https://www.jianguoyun.com/p/DbZJv8QQ7oftCBiPg9QD. Once Downloaded, you need to unzip the `pre_trained.zip`  and use the unzipped `pre_trained` folder to replace the origin `pre_trained` folder. There are four trained models--'brain','PBMC-Ding','PBMC-Mereu','pancreas'. You can view `cell_type.txt`  to select the model satisfying your need. For illustration purpose, we took 'brain' model as an example. You just need to put the query dataset file in the `test_set` folder and run the following command.
+* **Cell assginment with pre_trained models:** You can directly use models we have trained. Models can be downloaded through https://www.jianguoyun.com/p/DbZJv8QQ7oftCBiPg9QD. Once downloaded, you need to unzip the `pre_trained.zip` and use the unzipped `pre_trained` folder to replace the origin `pre_trained` folder. There are four trained models--'brain','PBMC-Ding','PBMC-Mereu','pancreas'. You can view `cell_type.txt`  to select the model satisfying your need. For illustration purpose, we took 'brain' model as an example. You just need to put the query dataset file in the `test_set` folder and run the following command.
   ```
   python test_with_trained_model.py -m brain
   ```
@@ -58,6 +58,6 @@ The format of test data is the format of training data without the column of "ce
   ```
 * **Check the results:** For all the above tests, the assignment results can be found in the `result.txt`  after running.
 ## Citation  
-Qi Liu, et al. Integrating multiple references for single-cell assignment. 2020 (Manuscript submitted)  
+Integrating multiple references for single-cell assignment. 2021 (Manuscript submitted)  
 ## Contacts  
 csq_@tongji.edu.cn, bioinfo_db@163.com or qiliu@tongji.edu.cn
