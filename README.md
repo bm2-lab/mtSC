@@ -3,20 +3,21 @@
 mtSC is a novel, flexible and generalized multitask deep metric learning-based framework for single cell assignment based on multiple references. Previous strategies for single-cell assignment with multiple references rely on data- or decision-level integration, while limitations remain. Different from the previous strategies, mtSC regards each reference dataset as a task, and different tasks can be complementary to improve single-cell assignment, while the overcorrection of the batch effect can be avoided. Such a novel integration strategy provides a flexible and reliable way to integrate related reference datasets. On the other hand, two additional advantages of mtSC were proven in this study: (1) mtSC performs increasingly better as the number of reference datasets increases, and (2) mtSC enables cross-species single-cell assignment, especially for specific tissues with very few sequencing datasets available for a specific species. These two characteristics of mtSC are of great potential utility when much more sequencing data on different species have accumulated in the future.
 ## Workflow
 ![](https://github.com/bm2-lab/mtSC/blob/master/mtSC_workflow.jpg)
-
-mtSC comprises two main steps: model learning and cell assignment. (1) In the model learning process of mtSC, each dataset is considered a single task, and a corresponding loss is calculated. All the losses are added together and utilized to update the model parameters through a backpropagation algorithm, then the parameter-shared deep metric learning network (PS-DMLN) was trained for the next cell assignment process. (2) In the cell assignment process of mtSC, the trained PS-DMLN is utilized to transform the query cells. Then, the transformed query cells are compared against transformed reference cells, and the predicted cell type with the highest similarity among all the transformed reference datasets is obtained.
+mtSC comprises two main steps: model learning and cell assignment.
+* (1) In the model learning process of mtSC, each dataset is considered a single task, and a corresponding loss is calculated. All the losses are added together and utilized to update the model parameters through a backpropagation algorithm, then the parameter-shared deep metric learning network (PS-DMLN) was trained for the next cell assignment process.
+* (2) In the cell assignment process of mtSC, the trained PS-DMLN is utilized to transform the query cells. Then, the transformed query cells are compared against transformed reference cells, and the predicted cell type with the highest similarity among all the transformed reference datasets is obtained.
 
 ## Install
 Environment: Python>=3.6
-1. Clone the repository
+* 1. Clone the repository
 ```
 git clone https://github.com/bm2-lab/mtSC.git  
 ```
-2. Install the dependencies
+* 2. Install the dependencies
 ```
 pip install mtSC
 ```
-3. Create folder 
+* 3. Create folder 
 
    Linux or Mac:
    ```
