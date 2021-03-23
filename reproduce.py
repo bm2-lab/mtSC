@@ -9,6 +9,7 @@ import pandas as pd
 from scipy.stats import pearsonr
 from tqdm import tqdm
 import scanpy as sc
+import copy
 
 
 class Setting:
@@ -138,7 +139,7 @@ def get_all_gene(trainset_dir):
             df = pd.read_csv(trainset_dir + dataset, sep='\t')
         elif '.csv' in dataset:
             df = pd.read_csv(trainset_dir + dataset)
-        elif '.h5' in dataset and '.h5ad' not in dataset and '_processed' not in dataset:
+        elif '.h5' in dataset and '_processed' not in dataset:
             df = pd.read_hdf(trainset_dir + dataset)
         elif '.h5ad' in dataset:
             df = sc.read_h5ad(trainset_dir + dataset)
@@ -172,11 +173,8 @@ def process_data_to_same_gene(gene, root_dir, output_dir, mode):
             all_data = pd.read_csv(root_dir + dataset, sep='\t')
         elif '.csv' in dataset:
             all_data = pd.read_csv(root_dir + dataset)
-        elif '.h5' in dataset and '.h5ad' not in dataset and '_processed' not in dataset:
+        elif '.h5' in dataset and '_processed' not in dataset:
             all_data = pd.read_hdf(root_dir + dataset)
-        elif '.h5ad' in dataset:
-            all_data = sc.read_h5ad(root_dir + dataset)
-            all_data = all_data.to_df()
         else:
             continue
         add_gene = []
@@ -203,9 +201,10 @@ def process_data_to_same_gene(gene, root_dir, output_dir, mode):
                   [0]+'_processed.h5', key='data')
 
 
-def get_dataloaders_and_LabelNumList_and_FeatureNum(train_dataset_list, trainset_dir):
+def get_dataloaders_and_LabelNumList_and_AllLabelList_and_FeatureNum(train_dataset_list, trainset_dir):
     dataloaders = []
     label_num_list = []
+    all_label_list = []
     for train_dataset in train_dataset_list:
         cell_dataset = CellDataset(
             train_dataset, trainset_dir)
@@ -216,8 +215,12 @@ def get_dataloaders_and_LabelNumList_and_FeatureNum(train_dataset_list, trainset
         label_num = len(np.unique(tr_y))
         dataloaders.append(dataloader)
         label_num_list.append(label_num)
+        label_list = np.unique(tr_y)
+        for label_ in label_list:
+            if label_ not in all_label_list:
+                all_label_list.append(label_)
     feature_num = cell_dataset.data_frame.shape[1]-1
-    return dataloaders, label_num_list, feature_num
+    return dataloaders, label_num_list, all_label_list, feature_num
 
 
 def train(model, dataloaders, optimizer, epoch, loss_function, device, label_num_list):
@@ -252,7 +255,7 @@ def get_MetricsList_and_LabelsList(model, train_dataset_list, trainset_dir):
         tr_x = train_data.iloc[:, :-1].values
         tr_y = train_data.iloc[:, -1].values
         labels = np.unique(tr_y)
-
+        
         metrics = calculate_metrics(
             tr_x, tr_y, model, labels)
         metrics_list.append(metrics)
@@ -278,7 +281,7 @@ def calculate_metrics(tr_x, tr_y, model, labels):
 
 def test(model, test_data, train_dataset_list, metrics_list, labels_list):
     test_data = torch.tensor(test_data.values,
-                             dtype=torch.float32)
+                        dtype=torch.float32)
     max_likelihood_lists = []
     max_likelihood_classes = []
     for l in range(len(train_dataset_list)):
@@ -309,61 +312,83 @@ def one_model_predict(test_data, model, metrics, labels):
     return max_likelihood_list, max_likelihood_class
 
 
-def main(trainset_dir, testset_dir):
+def all_evaluate(pred_class, te_y, label_list):
+    f1_list = []
+    te_y = te_y.tolist()
+    # calculate f1_score and unassignment rate
+    correct = [1 if a == b else 0 for (
+        a, b) in zip(pred_class, te_y)]
+    #if inputed test set has none unassignment class, acc=precision
+    accuracy = (sum(map(int, correct)) / float(len(correct)))
+    labels = np.unique(te_y)
+    for label in labels:
+        if label not in label_list:
+            continue
+        tp = 0
+        for k in range(len(te_y)):
+            if (te_y[k] == label) and (pred_class[k] == label):
+                tp = tp + 1
+        if tp == 0:
+            f1_list.append(0.0)
+            continue
+        if pred_class.count(label):
+            precision = tp/float(te_y.count(label))
+            recall = tp/float(pred_class.count(label))
+            f1_score = (2*precision*recall)/(precision+recall)
+            f1_list.append(f1_score)
+        else:
+            f1_list.append(0.0)
+    mean_f1 = np.mean(f1_list)
+    return mean_f1
+
+def main(trainset_dir):
     torch.manual_seed(2)
     if trainset_dir[-1] != '/':
         trainset_dir = trainset_dir+'/'
-    if testset_dir[-1] != '/':
-        testset_dir = testset_dir+'/'
     print('Get all gene')
     train_gene = get_all_gene(trainset_dir)
-    test_gene = train_gene[:-1]
-    print('Process the training data set into the same gene format')
-    process_data_to_same_gene(train_gene, trainset_dir,
-                              trainset_dir, mode='train')
-    print('Process the test data set into the same gene format')
-    if os.listdir(testset_dir):
-        process_data_to_same_gene(
-            test_gene, testset_dir, testset_dir, mode='test')
+    print('Process data set into the same gene format')
+    process_data_to_same_gene(train_gene, trainset_dir, trainset_dir, mode='train')
+
     args = Setting()
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     epoch = args.epoch
-    train_dataset_list = []
-    test_dataset_list = []
+    
+    whole_dataset_list = []
     for filename in os.listdir(trainset_dir):
         if '_processed.h5' in filename:
-            train_dataset_list.append(filename)
-    for filename in os.listdir(testset_dir):
-        if '_processed.h5' in filename:
-            test_dataset_list.append(filename)
+            whole_dataset_list.append(filename)
+    with open('repeat_result.txt', 'a') as result_file:
+        result_file.write('test_set,mean_f1\n')
+    for test_set in whole_dataset_list:
+        train_dataset_list = copy.deepcopy(whole_dataset_list)
+        train_dataset_list.remove(test_set)
 
-    dataloaders, label_num_list, feature_num = get_dataloaders_and_LabelNumList_and_FeatureNum(
-        train_dataset_list, trainset_dir)
+        dataloaders, label_num_list, all_label_list, feature_num = get_dataloaders_and_LabelNumList_and_AllLabelList_and_FeatureNum(
+            train_dataset_list, trainset_dir)
 
-    model = Net(feature_num).to(device)
-    optimizer = optim.Adam(
-        model.parameters(),
-        lr=args.lr
-    )
-    criterion = NPairLoss()
-    print('train')
-    model = train(model, dataloaders, optimizer, epoch,
-                  criterion, device, label_num_list)
 
-    #test
-    print('test')
-    model.cpu().eval()
-    metrics_list, labels_list = get_MetricsList_and_LabelsList(
-        model, train_dataset_list, trainset_dir)
-    if test_dataset_list:
-        for i in range(len(test_dataset_list)):
-            test_set = test_dataset_list[i]
-            test_data = pd.read_hdf(testset_dir+test_set)
-            pred_class = test(model, test_data, train_dataset_list,
-                              metrics_list, labels_list)
-            with open('result.txt', 'a') as result_file:
-                for pred_class_indice in range(len(pred_class)):
-                    result_file.write(
-                        str(test_data.index[pred_class_indice])+'\t'+pred_class[pred_class_indice]+'\n')
+        model = Net(feature_num).to(device)
+        optimizer = optim.Adam(
+            model.parameters(),
+            lr=args.lr
+        )
+        criterion = NPairLoss()
+        print('train')
+        model = train(model, dataloaders, optimizer, epoch, criterion, device, label_num_list)
 
-    torch.save(model.state_dict(), 'pre_trained/model/new_model.pth')
+        #test
+        print('test')
+        model.cpu().eval()
+        metrics_list, labels_list = get_MetricsList_and_LabelsList(
+            model, train_dataset_list, trainset_dir)
+        test_data = pd.read_hdf(trainset_dir+test_set)
+        te_x = test_data.iloc[:,:-1]
+        te_y = test_data.iloc[:,-1]
+        pred_class = test(model, te_x, train_dataset_list,
+                        metrics_list, labels_list)
+        mean_f1 = all_evaluate(pred_class, te_y, all_label_list)
+        with open('repeat_result.txt', 'a') as result_file:
+            result_file.write('{},{}\n'.format(test_set, mean_f1))
+
+main('train_set')
