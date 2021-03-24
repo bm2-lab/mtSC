@@ -31,7 +31,8 @@ pip install mtSC
    ```
 ## Tutorial
 ### Format of input data
-A routine normalization and quality control should be performed. The format of training data should be a csv or tab-delimited txt format where the columns correspond to genes and the rows correspond to cells. The column of cell types should be the last column and named as "cell_label". A sample file looks something like:
+A routine normalization and quality control should be performed. For example, there are three commonly used cell quality criteria, namely, the number of genes detected (default >500), the number of unique molecular identifiers induced (default >1500), and the percentage of mitochondrial genes detected (default <10% among all genes). Then, datasets should be normalized, i.e., scaling to 10,000 and then with log(counts+1).
+The format of training data should be a csv or tab-delimited txt format where the columns correspond to genes and the rows correspond to cells. The column of cell types should be the last column and named as "cell_label". In a word, the format of training data is a transposed normalized dataset with a cell type column in the right. A sample file looks something like:
 
 |   | tspan6 | dpm1 | cell_label |
 | ------------- | ------------- |------------- | ------------- |
