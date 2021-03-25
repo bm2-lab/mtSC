@@ -67,7 +67,10 @@ The script can be run by calling the following command. The `filename` is file n
   ```
   python test_with_trained_model.py -m new_model
   ```
-* **Check the results:** For all the above tests, the assignment results can be found in the `result.txt`  after running.
+* **Check the results:** For all the above tests, the assignment results can be found in the `result.txt`  after running. The content of the `result.txt` consists of two columns. The first column represents cell barcodes and the second column represents predicted cell class information. It looks like:<br />
+pbmc1_SM2_Cell_133&nbsp;&nbsp;&nbsp;&nbsp;CD4+_T_cell<br />
+pbmc1_SM2_Cell_142&nbsp;&nbsp;&nbsp;&nbsp;B_Cell
+
 ## Citation  
 Integrating multiple references for single-cell assignment. 2021 (Manuscript submitted)  
 ## Contacts  
