@@ -46,7 +46,7 @@ We also provide a script `preprocess.py` to handle the cell quality control and 
 | tspan6  | 4  |0  |
 | dpm1  | 0  |9  |
 
-The script can be run by calling the following command. The `filename` is filename of the origin counts matrix dataset.
+The script can be run by calling the following command. The `filename` is file name of the origin counts matrix dataset.
   ```
   python preprocess.py -f filename
   ```
