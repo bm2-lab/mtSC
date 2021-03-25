@@ -32,7 +32,7 @@ pip install mtSC
 ## Tutorial
 ### Format of input data
 A routine normalization and quality control should be performed. For example, there are three commonly used cell quality criteria, namely, the number of genes detected (default >500), the number of unique molecular identifiers induced (default >1500), and the percentage of mitochondrial genes detected (default <10% among all genes). Then, datasets should be normalized, i.e., scaling to 10,000 and then with log(counts+1).
-The format of training data should be a csv or tab-delimited txt format where the columns correspond to genes and the rows correspond to cells. The column of cell types should be the last column and named as "cell_label". In a word, the format of training data is a transposed normalized dataset with a cell type column in the right. A sample file looks something like:
+The format of training data should be a csv or tab-delimited txt or h5ad(scanpy) format where the columns correspond to genes and the rows correspond to cells. The column of cell types should be the last column and named as "cell_label". In a word, the format of training data is a transposed normalized dataset with a cell type column in the right. A sample file looks something like:
 
 |   | tspan6 | dpm1 | cell_label |
 | ------------- | ------------- |------------- | ------------- |
@@ -40,6 +40,15 @@ The format of training data should be a csv or tab-delimited txt format where th
 | pbmc1_SM2_Cell_142  | 0.0  |0.778851  |B_Cell  |
 
 The format of test data is the format of training data without the column of "cell_label".
+We also provide a script `preprocess.py` to handle the cell quality control and normalization of origin counts matrix dataset. The processed file will end up with "\_treated.h5" in its name and can read through `pandas` package's `read_hdf` function. After processing by the script, you just need to add the cell type column in the right of the processed matrix. The origin counts matrix dataset should be a csv or tab-delimited txt or h5ad(scanpy) format where the columns correspond to cells and the rows correspond to genes looks like:
+|   | pbmc1_SM2_Cell_133 | pbmc1_SM2_Cell_142 |
+| ------------- | ------------- |------------- |
+| tspan6  | 4  |0  |
+| dpm1  | 0  |9  |
+The script can be run by calling the following command. The `filename` is filename of the origin counts matrix dataset.
+  ```
+  python preprocess.py -f filename
+  ```
 ### How mtSC works
 * **Example datasets:** The example data is in https://www.jianguoyun.com/p/DbqGHM0Q7oftCBiFjNQD. You can download whole `train_set` and `test_set` folder. Once downloaded, you need to unzip the `train_set.zip` and `test_set.zip` and then use the unzipped `train_set` folder and `test_set` folder to replace the origin `train_set` folder and `test_set` folder. The demo example can be run by calling the following command.
   ```
