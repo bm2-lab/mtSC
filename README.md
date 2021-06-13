@@ -72,6 +72,6 @@ pbmc1_SM2_Cell_133&nbsp;&nbsp;&nbsp;&nbsp;CD4+_T_cell<br />
 pbmc1_SM2_Cell_142&nbsp;&nbsp;&nbsp;&nbsp;B_Cell
 
 ## Citation  
-Integrating multiple references for single-cell assignment. 2021 (Manuscript submitted)  
+Duan B, Chen S, Chen X, Zhu C, Tang C, Wang S, Gao Y, Fu S, Liu Q. Integrating multiple references for single-cell assignment. Nucleic Acids Res. 2021 May 25:gkab380. doi: 10.1093/nar/gkab380. Epub ahead of print. PMID: 34037791.
 ## Contacts  
 csq_@tongji.edu.cn, bioinfo_db@163.com or qiliu@tongji.edu.cn
