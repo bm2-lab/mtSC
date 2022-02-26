@@ -140,6 +140,6 @@ for i in range(len(test_dataset_list)):
     #check
     with open('result.txt','a') as result_file:
         for pred_class_indice in range(len(pred_class)):
-            result_file.write(str(test_data.index[pred_class_indice])+'\t'+pred_class[pred_class_indice]+'\n')
+            result_file.write(str(test_data.index[pred_class_indice])+'\t'+str(pred_class[pred_class_indice])+'\n')
 
 
