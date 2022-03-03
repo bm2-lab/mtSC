@@ -62,7 +62,7 @@ def process_data_to_same_gene(gene, root_dir, output_dir, mode):
 
 def test(model, test_data, metrics_list, labels_list):
     test_data = torch.tensor(test_data.values,
-                        dtype=torch.float32).to(device)
+                        dtype=torch.float32)
     max_likelihood_lists = []
     max_likelihood_classes = []
     for l in range(len(metrics_list)):
@@ -102,7 +102,6 @@ mode = out_args.mode
 
 testset_dir = 'test_set/'
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 with open('pre_trained/gene/'+mode+'.txt') as gene_file:
     gene = gene_file.readline().split(', ')
@@ -119,10 +118,10 @@ for filename in os.listdir(testset_dir):
 
 
 
-model = Net(feature_num).to(device)
+model = Net(feature_num)
 
 model.load_state_dict(torch.load(
-    'pre_trained/model/'+mode+'.pth', map_location=device))
+    'pre_trained/model/'+mode+'.pth'))
 
 metrics_list = []
 labels_list = []
