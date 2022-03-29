@@ -55,11 +55,11 @@ The script can be run by calling the following command. The `filename` is file n
   ```
   python run.py
   ```
-* **Cell assginment with model trained by your datasets:** You just need to put reference datasets files in the `train_set` folder, put the query datasets files in the `test_set` folder and run the following command.
+* **Cell assignment with model trained by your datasets:** You just need to put reference datasets files in the `train_set` folder, put the query datasets files in the `test_set` folder and run the following command.
   ```
   python run.py
   ```
-* **Cell assginment with pre_trained models:** You can directly use models we have trained. Models can be downloaded through https://www.jianguoyun.com/p/DbZJv8QQ7oftCBiPg9QD. Once downloaded, you need to unzip the `pre_trained.zip` and use the unzipped `pre_trained` folder to replace the origin `pre_trained` folder. There are four trained models--'brain','PBMC-Ding','PBMC-Mereu','pancreas'. You can view `cell_type.txt`  to select the model satisfying your need. For illustration purpose, we took 'brain' model as an example. You just need to put the query dataset file in the `test_set` folder and run the following command.
+* **Cell assignment with pre_trained models:** You can directly use models we have trained. Models can be downloaded through https://www.jianguoyun.com/p/DbZJv8QQ7oftCBiPg9QD. Once downloaded, you need to unzip the `pre_trained.zip` and use the unzipped `pre_trained` folder to replace the origin `pre_trained` folder. There are four trained models--'brain','PBMC-Ding','PBMC-Mereu','pancreas'. You can view `cell_type.txt`  to select the model satisfying your need. For illustration purpose, we took 'brain' model as an example. You just need to put the query dataset file in the `test_set` folder and run the following command.
   ```
   python test_with_trained_model.py -m brain
   ```
